@@ -1,27 +1,15 @@
 package ch.noseryoung.websockets.domain.message;
 
+import ch.noseryoung.websockets.generic.AbstractEntityServiceImpl;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public class MessageServiceImpl implements MessageService {
-
-    private MessageRepository repository;
+public class MessageServiceImpl extends AbstractEntityServiceImpl<Message> implements MessageService {
 
     @Autowired
-    public MessageServiceImpl(MessageRepository repository) {
-        this.repository = repository;
-    }
-
-    @Override
-    public List<Message> findAll() {
-        return repository.findAll();
-    }
-
-    @Override
-    public Message create(Message message) {
-        return repository.save(message.setId(null));
+    public MessageServiceImpl(MessageRepository repository, Logger logger) {
+        super(repository, logger);
     }
 }

@@ -1,8 +1,8 @@
-package ch.noseryoung.websockets.domain.message;
+package ch.noseryoung.websockets.domain.chat;
 
 import ch.noseryoung.websockets.generic.AbstractEntityRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MessageRepository extends AbstractEntityRepository<Message> {
+public interface ChatRepository extends AbstractEntityRepository<Chat> {
 }

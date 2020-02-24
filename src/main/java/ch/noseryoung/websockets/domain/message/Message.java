@@ -1,29 +1,28 @@
 package ch.noseryoung.websockets.domain.message;
 
-import org.hibernate.annotations.GenericGenerator;
+import ch.noseryoung.websockets.domain.user.User;
+import ch.noseryoung.websockets.generic.AbstractEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "message")
-public class Message {
+public class Message extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(generator = "system-uid")
-    @GenericGenerator(name = "system-uid", strategy = "uuid2")
-    private String id;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User from;
 
+    @Column(length = 2000)
     private String content;
 
-    public String getId() {
-        return id;
+    public User getFrom() {
+        return from;
     }
 
-    public Message setId(String id) {
-        this.id = id;
+    public Message setFrom(User from) {
+        this.from = from;
         return this;
     }
 
@@ -33,6 +32,14 @@ public class Message {
 
     public Message setContent(String content) {
         this.content = content;
+        return this;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return createdAt;
+    }
+
+    public Message setTimestamp(LocalDateTime timestamp) {
         return this;
     }
 }

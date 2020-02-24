@@ -1,11 +1,6 @@
 package ch.noseryoung.websockets.domain.message;
 
-import java.util.List;
+import ch.noseryoung.websockets.generic.AbstractEntityService;
 
-public interface MessageService {
-
-    List<Message> findAll();
-
-    Message create(Message message);
-
+public interface MessageService extends AbstractEntityService<Message> {
 }
