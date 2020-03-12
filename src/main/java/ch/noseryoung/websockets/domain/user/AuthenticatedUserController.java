@@ -3,8 +3,6 @@ package ch.noseryoung.websockets.domain.user;
 import ch.noseryoung.websockets.domain.chat.Chat;
 import ch.noseryoung.websockets.domain.chat.dto.ChatDTO;
 import ch.noseryoung.websockets.domain.chat.dto.ChatMapper;
-import ch.noseryoung.websockets.domain.user.dto.UserDTO;
-import ch.noseryoung.websockets.domain.user.dto.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,18 +17,11 @@ import java.util.Collection;
 @RequestMapping("/user")
 public class AuthenticatedUserController {
 
-    private UserMapper userMapper;
     private ChatMapper chatMapper;
 
     @Autowired
-    public AuthenticatedUserController(UserMapper userMapper, ChatMapper chatMapper) {
-        this.userMapper = userMapper;
+    public AuthenticatedUserController(ChatMapper chatMapper) {
         this.chatMapper = chatMapper;
-    }
-
-    @GetMapping
-    public ResponseEntity<UserDTO> findAuthenticated(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return new ResponseEntity<>(userMapper.toDTO(userDetails.getUser()), HttpStatus.OK);
     }
 
     @GetMapping("/chats")

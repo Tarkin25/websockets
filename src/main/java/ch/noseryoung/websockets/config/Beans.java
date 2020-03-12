@@ -1,6 +1,9 @@
 package ch.noseryoung.websockets.config;
 
 import ch.noseryoung.websockets.WebsocketsApplication;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InjectionPoint;
@@ -43,6 +46,11 @@ public class Beans {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
+    }
+
+    @Bean
+    OpenAPI openAPI() {
+        return new OpenAPI().info(new Info().description("Example chat application").contact(new Contact().email("weigold@noseryoung.com").name("Severin Weigold")).title("Chat API"));
     }
 
 }

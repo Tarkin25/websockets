@@ -1,0 +1,24 @@
+version: "3.1"
+
+networks:
+  chat-network:
+
+services:
+  chat-postgres:
+    image: postgres:11-alpine
+    container_name: chat-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: chat
+    ports:
+      - 5431:5432
+    networks:
+      - chat-network
+  backend:
+    build: .
+    container_name: chat-backend
+    ports:
+      - 8080:8080
+    networks:
+      - chat-network

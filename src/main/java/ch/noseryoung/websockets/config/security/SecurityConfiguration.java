@@ -1,6 +1,7 @@
 package ch.noseryoung.websockets.config.security;
 
 import ch.noseryoung.websockets.domain.user.UserService;
+import ch.noseryoung.websockets.domain.user.dto.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -22,13 +23,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private UserService userService;
     private JWTProperties jwtProperties;
     private JWTOncePerRequestFilter oncePerRequestFilter;
+    private UserMapper userMapper;
 
     @Autowired
-    public SecurityConfiguration(BCryptPasswordEncoder passwordEncoder, UserService userService, JWTProperties jwtProperties, JWTOncePerRequestFilter oncePerRequestFilter) {
+    public SecurityConfiguration(BCryptPasswordEncoder passwordEncoder, UserService userService, JWTProperties jwtProperties, JWTOncePerRequestFilter oncePerRequestFilter, UserMapper userMapper) {
         this.passwordEncoder = passwordEncoder;
         this.userService = userService;
         this.jwtProperties = jwtProperties;
         this.oncePerRequestFilter = oncePerRequestFilter;
+        this.userMapper = userMapper;
     }
 
     @Override
@@ -41,7 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .permitAll().anyRequest().authenticated()
                 .and()
                 .addFilterAfter(
-                        new LoginFilter(new AntPathRequestMatcher("/login", "POST"), authenticationManager(), jwtProperties),
+                        new LoginFilter(new AntPathRequestMatcher("/login", "POST"), authenticationManager(), jwtProperties, userMapper),
                         UsernamePasswordAuthenticationFilter.class
                 )
                 .addFilterAfter(

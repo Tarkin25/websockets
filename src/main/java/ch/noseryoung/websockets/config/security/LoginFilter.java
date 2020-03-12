@@ -2,6 +2,8 @@ package ch.noseryoung.websockets.config.security;
 
 import ch.noseryoung.websockets.domain.user.User;
 import ch.noseryoung.websockets.domain.user.UserDetailsImpl;
+import ch.noseryoung.websockets.domain.user.dto.UserDTO;
+import ch.noseryoung.websockets.domain.user.dto.UserMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -24,12 +26,14 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
 
     private JWTProperties jwtProperties;
     private ObjectMapper objectMapper;
+    private UserMapper userMapper;
 
-    public LoginFilter(RequestMatcher requestMatcher, AuthenticationManager authenticationManager, JWTProperties jwtProperties) {
+    public LoginFilter(RequestMatcher requestMatcher, AuthenticationManager authenticationManager, JWTProperties jwtProperties, UserMapper userMapper) {
         super(requestMatcher);
         setAuthenticationManager(authenticationManager);
         this.jwtProperties = jwtProperties;
         this.objectMapper = new ObjectMapper();
+        this.userMapper = userMapper;
     }
 
     @Override
@@ -52,5 +56,8 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
         response.addHeader(jwtProperties.getHeaderName(), jwtProperties.getTokenPrefix() + " " + authorizationToken);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.addHeader("Access-Control-Expose-Headers", jwtProperties.getHeaderName());
+
+        UserDTO userDTO = userMapper.toDTO(authenticatedUser);
+        response.getOutputStream().write(objectMapper.writeValueAsBytes(userDTO));
     }
 }

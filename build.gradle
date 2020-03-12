@@ -36,6 +36,10 @@ dependencies {
     annotationProcessor "org.mapstruct:mapstruct-processor:1.3.0.Final"
     testAnnotationProcessor "org.mapstruct:mapstruct-processor:1.3.0.Final"
 
+    // OpenAPI
+    //implementation "org.springdoc:springdoc-openapi-core:1.1.49"
+    implementation "org.springdoc:springdoc-openapi-ui:1.2.27"
+
     runtimeOnly 'org.postgresql:postgresql'
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
