@@ -1,7 +1,7 @@
 package ch.noseryoung.websockets.domain.user;
 
 import ch.noseryoung.websockets.domain.chat.Chat;
-import ch.noseryoung.websockets.generic.AbstractEntity;
+import ch.noseryoung.websockets.core.generic.AbstractEntity;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 

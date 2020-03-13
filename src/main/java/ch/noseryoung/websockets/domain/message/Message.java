@@ -1,7 +1,7 @@
 package ch.noseryoung.websockets.domain.message;
 
 import ch.noseryoung.websockets.domain.user.User;
-import ch.noseryoung.websockets.generic.AbstractEntity;
+import ch.noseryoung.websockets.core.generic.AbstractEntity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

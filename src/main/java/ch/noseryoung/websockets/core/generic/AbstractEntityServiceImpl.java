@@ -1,4 +1,4 @@
-package ch.noseryoung.websockets.generic;
+package ch.noseryoung.websockets.core.generic;
 
 import org.slf4j.Logger;
 
@@ -60,7 +60,7 @@ public abstract class AbstractEntityServiceImpl<T extends AbstractEntity> implem
 
     @Override
     public final T create(T entity) {
-        return finishCreate(midCreate(startCreate(entity)));
+        return postCreate(doCreate(preCreate(startCreate(entity))));
     }
 
     private T startCreate(T entity) {
@@ -69,17 +69,21 @@ public abstract class AbstractEntityServiceImpl<T extends AbstractEntity> implem
         return entity;
     }
 
-    protected T midCreate(T entity) {
+    protected T preCreate(T entity) {
         return entity;
     }
 
-    private T finishCreate(T entity) {
+    private T doCreate(T entity) {
         entity.setId(null);
 
         entity = repository.save(entity);
 
         logger.debug("Created {}. New ID is '{}'", singleEntity(), entity.getId());
 
+        return entity;
+    }
+
+    protected T postCreate(T entity) {
         return entity;
     }
 
@@ -90,7 +94,7 @@ public abstract class AbstractEntityServiceImpl<T extends AbstractEntity> implem
 
     @Override
     public final T updateById(String id, T entity) throws NoSuchElementException {
-        return finishUpdate(id, midUpdate(id, startUpdate(id, entity)));
+        return postUpdate(id, doUpdate(id, preUpdate(id, startUpdate(id, entity))));
     }
 
     private T startUpdate(String id, T entity) {
@@ -105,11 +109,11 @@ public abstract class AbstractEntityServiceImpl<T extends AbstractEntity> implem
         }
     }
 
-    protected T midUpdate(String id, T entity) {
+    protected T preUpdate(String id, T entity) {
         return entity;
     }
 
-    private T finishUpdate(String id, T entity) {
+    private T doUpdate(String id, T entity) {
         entity.setId(id);
 
         entity = repository.save(entity);
@@ -119,9 +123,13 @@ public abstract class AbstractEntityServiceImpl<T extends AbstractEntity> implem
         return entity;
     }
 
+    protected T postUpdate(String id, T entity) {
+        return entity;
+    }
+
     @Override
     public final void deleteById(String id) throws NoSuchElementException {
-        finishDelete(id, midDelete(id, startDelete(id)));
+        doDelete(id, preDelete(id, startDelete(id)));
     }
 
     private T startDelete(String id) {
@@ -130,11 +138,11 @@ public abstract class AbstractEntityServiceImpl<T extends AbstractEntity> implem
         return findById(id);
     }
 
-    protected T midDelete(String id, T entity) {
+    protected T preDelete(String id, T entity) {
         return entity;
     }
 
-    private void finishDelete(String id, T entity) {
+    private void doDelete(String id, T entity) {
         entity.setDeleted(true);
 
         repository.save(entity);

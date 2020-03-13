@@ -1,4 +1,4 @@
-package ch.noseryoung.websockets.generic;
+package ch.noseryoung.websockets.core.generic;
 
 import java.util.List;
 import java.util.NoSuchElementException;

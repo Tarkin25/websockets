@@ -1,6 +1,6 @@
 package ch.noseryoung.websockets.domain.user.dto;
 
-import ch.noseryoung.websockets.generic.AbstractDTO;
+import ch.noseryoung.websockets.core.generic.AbstractDTO;
 
 public class UserDTO extends AbstractDTO {
 

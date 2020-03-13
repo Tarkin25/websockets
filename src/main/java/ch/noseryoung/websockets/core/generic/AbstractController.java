@@ -1,4 +1,4 @@
-package ch.noseryoung.websockets.generic;
+package ch.noseryoung.websockets.core.generic;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

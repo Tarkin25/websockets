@@ -1,7 +1,7 @@
 package ch.noseryoung.websockets.domain.chat.dto;
 
 import ch.noseryoung.websockets.domain.chat.Chat;
-import ch.noseryoung.websockets.generic.DTOMapper;
+import ch.noseryoung.websockets.core.generic.DTOMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 

@@ -1,6 +1,6 @@
 package ch.noseryoung.websockets.domain.message;
 
-import ch.noseryoung.websockets.generic.AbstractEntityRepository;
+import ch.noseryoung.websockets.core.generic.AbstractEntityRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository

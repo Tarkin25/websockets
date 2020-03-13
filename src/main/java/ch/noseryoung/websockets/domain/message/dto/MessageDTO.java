@@ -1,7 +1,7 @@
 package ch.noseryoung.websockets.domain.message.dto;
 
 import ch.noseryoung.websockets.domain.user.dto.UserDTO;
-import ch.noseryoung.websockets.generic.AbstractDTO;
+import ch.noseryoung.websockets.core.generic.AbstractDTO;
 
 public class MessageDTO extends AbstractDTO {
 

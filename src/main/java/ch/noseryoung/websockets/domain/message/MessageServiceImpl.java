@@ -1,6 +1,6 @@
 package ch.noseryoung.websockets.domain.message;
 
-import ch.noseryoung.websockets.generic.AbstractEntityServiceImpl;
+import ch.noseryoung.websockets.core.generic.AbstractEntityServiceImpl;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

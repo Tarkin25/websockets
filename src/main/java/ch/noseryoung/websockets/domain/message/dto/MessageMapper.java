@@ -1,7 +1,7 @@
 package ch.noseryoung.websockets.domain.message.dto;
 
 import ch.noseryoung.websockets.domain.message.Message;
-import ch.noseryoung.websockets.generic.DTOMapper;
+import ch.noseryoung.websockets.core.generic.DTOMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
