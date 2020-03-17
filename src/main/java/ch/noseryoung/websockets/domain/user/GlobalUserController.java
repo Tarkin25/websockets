@@ -1,5 +1,6 @@
 package ch.noseryoung.websockets.domain.user;
 
+import ch.noseryoung.websockets.domain.chat.ChatUserService;
 import ch.noseryoung.websockets.domain.user.dto.UserDTO;
 import ch.noseryoung.websockets.domain.user.dto.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +17,26 @@ public class GlobalUserController {
 
     private UserService userService;
     private UserMapper userMapper;
+    private ChatUserService chatUserService;
 
     @Autowired
-    public GlobalUserController(UserService userService, UserMapper userMapper) {
+    public GlobalUserController(UserService userService, UserMapper userMapper, ChatUserService chatUserService) {
         this.userService = userService;
         this.userMapper = userMapper;
+        this.chatUserService = chatUserService;
     }
 
     @GetMapping
-    public ResponseEntity<Collection<UserDTO>> findAll() {
-        Collection<User> users = userService.findAll();
+    public ResponseEntity<Collection<UserDTO>> findAll(
+            @RequestParam(required = false) String excludeChatId
+    ) {
+        Collection<User> users;
+
+        if(excludeChatId != null) {
+            users = chatUserService.findUsersNotIn(excludeChatId);
+        } else {
+            users = userService.findAll();
+        }
 
         return new ResponseEntity<>(userMapper.toDTOs(users), HttpStatus.OK);
     }

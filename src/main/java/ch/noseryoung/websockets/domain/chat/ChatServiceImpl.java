@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+
 @Service
 @Primary
 public class ChatServiceImpl extends AbstractEntityServiceImpl<Chat> implements ChatService {
@@ -32,6 +34,17 @@ public class ChatServiceImpl extends AbstractEntityServiceImpl<Chat> implements 
         addToChat(creator, chat);
 
         return chat;
+    }
+
+    @Override
+    public Collection<Chat> findAllByUser(User user) {
+        logger.debug("Attempting to find all {} by User with ID '{}'", multipleEntities(), user.getId());
+
+        Collection<Chat> chats = ((ChatRepository) repository).findAllByDeletedFalseAndUsersContaining(user);
+
+        logger.debug("Found {}", multipleEntities());
+
+        return chats;
     }
 
     private void addToChat(User user, Chat chat) {

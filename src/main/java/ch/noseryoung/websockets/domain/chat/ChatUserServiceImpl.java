@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
@@ -29,6 +30,11 @@ public class ChatUserServiceImpl extends AbstractEntityServiceImpl<Chat> impleme
 
         logger.debug("Loaded Users");
         return chat.getUsers();
+    }
+
+    @Override
+    public Collection<User> findUsersNotIn(String chatId) throws NoSuchElementException {
+        return userService.findAllNotInChat(findById(chatId));
     }
 
     @Override
